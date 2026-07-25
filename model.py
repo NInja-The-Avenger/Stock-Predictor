@@ -15,13 +15,17 @@ from sklearn.metrics import (
 
 
 def train_model(df):
-
     features = [
         "Open",
         "High",
         "Low",
         "Volume",
-        "Previous Close"
+        "Previous Close",
+        "MA5",
+        "MA10",
+        "MA20",
+        "Daily Return",
+        "Price Range"
     ]
 
     X = df[features]
@@ -36,8 +40,12 @@ def train_model(df):
     )
 
     model = RandomForestRegressor(
-        n_estimators=200,
-        random_state=42
+    n_estimators=500,
+    max_depth=15,
+    min_samples_split=5,
+    min_samples_leaf=2,
+    random_state=42,
+    n_jobs=-1
     )
 
     model.fit(X_train, y_train)
